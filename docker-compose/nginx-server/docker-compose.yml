@@ -30,6 +30,7 @@ redis:
 
 phpfpm:
     image: php-fpm:v5.6
+    #image: php-fpm:v7.0
     links:
         - mysql
     volumes:
