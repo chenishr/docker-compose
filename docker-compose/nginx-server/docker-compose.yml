@@ -1,5 +1,5 @@
 nginx:
-    image: nginx:v1.1
+    image: index.alauda.cn/library/nginx
     links:
         - mysql
         - redis
