@@ -1,0 +1,79 @@
+FROM workplace:v0.01
+
+#####################################
+# 非 root 用户 :
+#####################################
+# Add a non-root user to prevent files being created with root permissions on host machine.
+ARG PUID=1000
+ARG PGID=1000
+RUN groupadd -g $PGID chenishr \
+	   && useradd -u $PUID -g chenishr -m chenishr
+
+
+####################################
+# 安装编译工具和依赖包
+####################################
+USER	root
+RUN	apt-get install -y \
+		build-essential \
+		gcc \
+		g++ \
+		autoconf \
+		libiconv-hook-dev \
+		libmcrypt-dev \
+		libxml2-dev \
+		libmysqlclient-dev \
+		libcurl4-openssl-dev \
+		libjpeg8-dev \
+		libpng12-dev \
+		libfreetype6-dev \
+		libssl-dev \
+	&& ln -s /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib
+
+
+##################################
+# 按装 PHP
+#################################
+USER	root
+COPY	php-7.1.6.tar.gz /tmp/
+RUN		cd /opt \
+		&& tar -zxf /tmp/php-7.1.6.tar.gz \
+			&& (\
+				cd php-7.1.6 \
+				&&	./configure --prefix=/usr/local/php \
+					--with-config-file-path=/etc/php \
+					--enable-fpm \
+					--enable-pcntl \
+					--enable-mysqlnd \
+					--enable-opcache \
+					--enable-sockets \
+					--enable-sysvmsg \
+					--enable-sysvsem \
+					--enable-sysvshm \
+					--enable-shmop \
+					--enable-zip \
+					--enable-soap \
+					--enable-xml \
+					--enable-mbstring \
+					--disable-rpath \
+					--disable-debug \
+					--disable-fileinfo \
+					--with-mysql=mysqlnd \
+					--with-mysqli=mysqlnd \
+					--with-pdo-mysql=mysqlnd \
+					--with-pcre-regex \
+					--with-iconv \
+					--with-zlib \
+					--with-mcrypt \
+					--with-gd \
+					--with-openssl \
+					--with-mhash \
+					--with-xmlrpc \
+					--with-curl \
+					--with-imap-ssl \
+				&& make \
+				&& make install \
+				&& mkdir -p /etc/php \
+				) \
+			&& rm /tmp/php-7.1.6.tar.gz
+
