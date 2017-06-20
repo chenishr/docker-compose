@@ -3,8 +3,8 @@ MAINTAINER	chenishr@gmail.com
 
 #####################################
 # 非 root 用户 :
-#####################################
 # Add a non-root user to prevent files being created with root permissions on host machine.
+#####################################
 ARG PUID=1000
 ARG PGID=1000
 RUN groupadd -g $PGID chenishr \
@@ -84,9 +84,25 @@ RUN		cd /opt \
 				&& make install \
 				&& mkdir -p /etc/php \
 				) \
-			&& rm /tmp/php-7.1.6.tar.gz
+			&& rm /tmp/php-7.1.6.tar.gz \
+			&& echo "" >> ~/.bashrc \
+			&& echo 'export PATH="/usr/local/php/bin:$PATH"' >> ~/.bashrc \
+			&& echo 'export PATH="/usr/local/php/sbin:$PATH"' >> ~/.bashrc
 
+########################################
+# 设置用户 chenishr 的环境变量
+########################################
+USER	chenishr
+RUN		echo "" >> ~/.bashrc \
+			&& echo 'export PATH="/usr/local/php/bin:$PATH"' >> ~/.bashrc \
+			&& echo 'export PATH="/usr/local/php/sbin:$PATH"' >> ~/.bashrc
 
+#######################################
+# 清除数据
+#######################################
+#USER	root
+#RUN		apt-get clean \
+#		&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # 容器的启动脚本,运行一个挂起的命令，保持容器不自动退出
 COPY	my_init.sh /sbin/my_init.sh
@@ -94,4 +110,3 @@ RUN		chmod 755 /sbin/my_init.sh
 
 WORKDIR /var/www/html
 ENTRYPOINT	["/sbin/my_init.sh"]
-

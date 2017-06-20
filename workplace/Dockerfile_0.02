@@ -2,8 +2,8 @@ FROM workplace:v0.01
 
 #####################################
 # 非 root 用户 :
-#####################################
 # Add a non-root user to prevent files being created with root permissions on host machine.
+#####################################
 ARG PUID=1000
 ARG PGID=1000
 RUN groupadd -g $PGID chenishr \
@@ -75,5 +75,15 @@ RUN		cd /opt \
 				&& make install \
 				&& mkdir -p /etc/php \
 				) \
-			&& rm /tmp/php-7.1.6.tar.gz
+			&& rm /tmp/php-7.1.6.tar.gz \
+			&& echo "" >> ~/.bashrc \
+			&& echo 'export PATH="/usr/local/php/bin:$PATH"' >> ~/.bashrc \
+			&& echo 'export PATH="/usr/local/php/sbin:$PATH"' >> ~/.bashrc
 
+########################################
+# 设置用户 chenishr 的环境变量
+########################################
+USER	chenishr
+RUN		echo "" >> ~/.bashrc \
+			&& echo 'export PATH="/usr/local/php/bin:$PATH"' >> ~/.bashrc \
+			&& echo 'export PATH="/usr/local/php/sbin:$PATH"' >> ~/.bashrc
