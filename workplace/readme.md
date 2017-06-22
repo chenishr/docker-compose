@@ -9,3 +9,9 @@
 >	安装 PHP
 
 	sudo docker build -f Dockerfile_0.02 -t workplace:v0.02 .
+
+#### 在之前的基础上安装 swoole 
+
+>	安装 swoole
+
+	sudo docker build -f Dockerfile_0.03 -t workplace:v0.03 .

@@ -98,6 +98,25 @@ RUN		echo "" >> ~/.bashrc \
 			&& echo 'export PATH="/usr/local/php/sbin:$PATH"' >> ~/.bashrc
 
 #######################################
+# 安装 swoole 
+######################################
+USER	root
+COPY	swoole-src-1.9.14.tar.gz /tmp/
+RUN		cd /opt \
+		&& tar -zxf /tmp/swoole-src-1.9.14.tar.gz \
+		&& ( \
+			cd swoole-src-1.9.14 \
+			&& /usr/local/php/bin/phpize \
+			&& ./configure --with-php-config=/usr/local/php/bin/php-config \
+			&& make \
+			&& make install \
+		   ) \
+		&& rm /tmp/swoole-src-1.9.14.tar.gz \
+		&& echo "" >> /etc/php/php.ini \
+		&& echo "extension=swoole.so" >> /etc/php/php.ini
+
+
+#######################################
 # 清除数据
 #######################################
 #USER	root

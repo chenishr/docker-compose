@@ -1,0 +1,18 @@
+FROM workplace:v0.1
+
+USER	root
+
+COPY	swoole-src-1.9.14.tar.gz /tmp/
+RUN		cd /opt \
+		&& tar -zxf /tmp/swoole-src-1.9.14.tar.gz \
+		&& ( \
+			cd swoole-src-1.9.14 \
+			&& /usr/local/php/bin/phpize \
+			&& ./configure --with-php-config=/usr/local/php/bin/php-config \
+			&& make \
+			&& make install \
+		   ) \
+		&& rm /tmp/swoole-src-1.9.14.tar.gz \
+		&& echo "" >> /etc/php/php.ini \
+		&& echo "extension=swoole.so" >> /etc/php/php.ini
+
