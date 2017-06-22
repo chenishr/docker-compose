@@ -105,6 +105,7 @@ RUN		echo "" >> ~/.bashrc \
 #		&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # 容器的启动脚本,运行一个挂起的命令，保持容器不自动退出
+USER	root
 COPY	my_init.sh /sbin/my_init.sh
 RUN		chmod 755 /sbin/my_init.sh
 
