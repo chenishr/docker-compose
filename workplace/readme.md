@@ -15,3 +15,9 @@
 >	安装 swoole
 
 	sudo docker build -f Dockerfile_0.03 -t workplace:v0.03 .
+
+#### 在之前的基础上安装 composer
+
+>	安装 composer
+
+	sudo docker build -f Dockerfile_0.04 -t workplace:v0.04 .

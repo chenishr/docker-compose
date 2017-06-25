@@ -1,0 +1,11 @@
+FROM workplace:v0.1
+
+##########################################
+# 安装 composer
+##########################################
+USER	root
+RUN		cd /tmp \
+			&& /usr/local/php/bin/php -r "copy('https://install.phpcomposer.com/installer', 'composer-setup.php');"	\
+			&& /usr/local/php/bin/php composer-setup.php \
+			&& /usr/local/php/bin/php -r "unlink('composer-setup.php');" \
+			&& mv composer.phar /usr/local/bin/composer 
