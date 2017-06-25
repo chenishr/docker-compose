@@ -8,7 +8,7 @@ nginx:
         - "80:80"
         - "443:443"
     volumes:
-        - /var/www:/usr/share/nginx/html
+        - /var/www/html:/usr/share/nginx/html
         - ./nginx.conf:/etc/nginx/nginx.conf
         - ./nginx.d:/etc/nginx/conf.d
 
@@ -23,6 +23,11 @@ mysql:
         - ./mysql.d:/etc/mysql/conf.d
         - /var/mysql:/var/lib/mysql
 
+workplace:
+    image: workplace:v0.1
+    volumes:
+        - /var/www/html:/var/www/html
+
 redis:
     image: index.alauda.cn/library/redis
     ports:
@@ -30,10 +35,11 @@ redis:
 
 phpfpm:
     image: php-fpm:v5.6
-    #image: php-fpm:v7.0
+    #image: php-fpm:v7.03
     links:
         - mysql
     volumes:
-        - /var/www:/var/www/html
+        - ./php.ini:/usr/local/etc/php/php.ini
+        - /var/www/html:/var/www/html
     ports:
         - "9000:9000"

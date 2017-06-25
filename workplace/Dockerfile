@@ -96,6 +96,7 @@ USER	chenishr
 RUN		echo "" >> ~/.bashrc \
 			&& echo 'export PATH="/usr/local/php/bin:$PATH"' >> ~/.bashrc \
 			&& echo 'export PATH="/usr/local/php/sbin:$PATH"' >> ~/.bashrc
+COPY	.vimrc ~/
 
 #######################################
 # 安装 swoole 
