@@ -21,3 +21,15 @@
 >	安装 composer
 
 	sudo docker build -f Dockerfile_0.04 -t workplace:v0.04 .
+
+###	前面的镜像合并起来
+
+>	配置 vim 运行 xdebug  
+>	需要在容器里面在安装 python2 ，执行以下命令即可：
+
+	// 
+	apt-get install vim-nox-py2
+
+	// 编译生成镜像
+	sudo docker build -t workplace:v0.12 .
+

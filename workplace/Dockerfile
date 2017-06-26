@@ -96,7 +96,6 @@ USER	chenishr
 RUN		echo "" >> ~/.bashrc \
 			&& echo 'export PATH="/usr/local/php/bin:$PATH"' >> ~/.bashrc \
 			&& echo 'export PATH="/usr/local/php/sbin:$PATH"' >> ~/.bashrc
-COPY	.vimrc ~/
 
 #######################################
 # 安装 swoole 
@@ -125,6 +124,13 @@ RUN		cd /tmp \
 			&& /usr/local/php/bin/php composer-setup.php \
 			&& /usr/local/php/bin/php -r "unlink('composer-setup.php');" \
 			&& mv composer.phar /usr/local/bin/composer 
+
+#########################################
+# 配置一些环境
+#########################################
+USER	root
+COPY	vim-config/ /home/chenishr/
+RUN		chown chenishr.chenishr -R /home/chenishr/
 
 #######################################
 # 清除数据
