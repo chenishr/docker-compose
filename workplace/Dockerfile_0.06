@@ -1,0 +1,18 @@
+FROM workplace:v0.12
+
+#########################################
+# 安装 node.js
+#########################################
+USER	root
+RUN		apt-get install -y python
+COPY	./node-v6.11.1.tar.gz /tmp/
+RUN		cd /opt \
+			&& tar -zxf /tmp/node-v6.11.1.tar.gz \
+			&& ( \
+				cd node-v6.11.1 \
+				&& ./configure \
+				&& make \
+				&& make install \
+			   ) \
+			&& rm /tmp/node-v6.11.1.tar.gz 
+

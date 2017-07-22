@@ -1,0 +1,7 @@
+FROM workplace:v0.12
+
+##########################################
+# 安装 composer
+##########################################
+USER	root
+RUN		apt-get install -y vim-nox-py2

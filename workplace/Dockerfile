@@ -23,28 +23,31 @@ RUN apt-get update && \
 # 安装编译工具和依赖包
 ####################################
 USER	root
-RUN	apt-get install -y \
-		build-essential \
-		gcc \
-		g++ \
-		autoconf \
-		libiconv-hook-dev \
-		libmcrypt-dev \
-		libxml2-dev \
-		libmysqlclient-dev \
-		libcurl4-openssl-dev \
-		libjpeg8-dev \
-		libpng12-dev \
-		libfreetype6-dev \
-		libssl-dev \
-	&& ln -s /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib
+RUN		apt-get update \
+			&& apt-get install -y \
+			build-essential \
+			gcc \
+			g++ \
+			autoconf \
+			libiconv-hook-dev \
+			libmcrypt-dev \
+			libxml2-dev \
+			libmysqlclient-dev \
+			libcurl4-openssl-dev \
+			libjpeg8-dev \
+			libpng12-dev \
+			libfreetype6-dev \
+			libssl-dev \
+			python \
+		&& ln -s /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib
 
+RUN		apt-get install -y vim-nox-py2 
 
 ##################################
 # 按装 PHP
 #################################
 USER	root
-COPY	php-7.1.6.tar.gz /tmp/
+COPY	./php/php-7.1.6.tar.gz /tmp/
 RUN		cd /opt \
 		&& tar -zxf /tmp/php-7.1.6.tar.gz \
 			&& (\
@@ -101,7 +104,7 @@ RUN		echo "" >> ~/.bashrc \
 # 安装 swoole 
 ######################################
 USER	root
-COPY	swoole-src-1.9.14.tar.gz /tmp/
+COPY	./php/swoole-src-1.9.14.tar.gz /tmp/
 RUN		cd /opt \
 		&& tar -zxf /tmp/swoole-src-1.9.14.tar.gz \
 		&& ( \
@@ -124,6 +127,29 @@ RUN		cd /tmp \
 			&& /usr/local/php/bin/php composer-setup.php \
 			&& /usr/local/php/bin/php -r "unlink('composer-setup.php');" \
 			&& mv composer.phar /usr/local/bin/composer 
+
+#########################################
+# 安装 phpunit
+#########################################
+USER   root
+COPY   ./php/phpunit /usr/local/bin/
+
+#########################################
+# 安装 node.js
+#########################################
+USER	root
+COPY	./node-v6.11.1.tar.gz /tmp/
+RUN		cd /opt \
+			&& tar -zxf /tmp/node-v6.11.1.tar.gz \
+			&& ( \
+				cd node-v6.11.1 \
+				&& ./configure \
+				&& make \
+				&& make install \
+			   ) \
+			&& rm /tmp/node-v6.11.1.tar.gz 
+
+
 
 #########################################
 # 配置一些环境
