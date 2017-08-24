@@ -6,7 +6,8 @@ RUN apt-get update && apt-get install -y \
 	libpng12-dev \
 	&& docker-php-ext-install -j$(nproc) iconv mcrypt mysqli zip json \
 	&& docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-	&& docker-php-ext-install -j$(nproc) gd 
+	&& docker-php-ext-install -j$(nproc) gd \
+	&& docker-php-ext-install -j$(nproc) pdo_mysql
 
 RUN curl -fsSL 'https://xdebug.org/files/xdebug-2.5.4.tgz' -o xdebug.tar.gz \
 	&& mkdir -p xdebug \
