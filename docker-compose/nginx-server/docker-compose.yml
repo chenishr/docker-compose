@@ -1,8 +1,6 @@
 nginx:
     image: index.alauda.cn/library/nginx
     links:
-        - mysql
-        - redis
         - phpfpm
     ports:
         - "80:80"
@@ -34,9 +32,10 @@ redis:
         - "6379:6379"
 
 phpfpm:
-    image: php-fpm:v5.6
-    #image: php-fpm:v7.03
+    #image: php-fpm:v5.6
+    image: php-fpm:v7.03
     links:
+        - redis
         - mysql
     volumes:
         - ./php.ini:/usr/local/etc/php/php.ini
