@@ -6,6 +6,7 @@ nginx:
         - "80:80"
         - "443:443"
     volumes:
+        - /etc/localtime:/etc/localtime
         - /var/www/html:/usr/share/nginx/html
         - ./nginx.conf:/etc/nginx/nginx.conf
         - ./nginx.d:/etc/nginx/conf.d
@@ -17,6 +18,7 @@ mysql:
     ports:
         - "3306:3306"
     volumes:
+        - /etc/localtime:/etc/localtime
         - ./mysql.cnf:/etc/mysql/my.cnf
         - ./mysql.d:/etc/mysql/conf.d
         - /var/mysql:/var/lib/mysql
@@ -24,12 +26,15 @@ mysql:
 workplace:
     image: workplace:v0.1
     volumes:
+        - /etc/localtime:/etc/localtime
         - /var/www/html:/var/www/html
 
 redis:
     image: index.alauda.cn/library/redis
     ports:
         - "6379:6379"
+    volumes:
+        - /etc/localtime:/etc/localtime
 
 phpfpm:
     #image: php-fpm:v5.6
@@ -38,6 +43,7 @@ phpfpm:
         - redis
         - mysql
     volumes:
+        - /etc/localtime:/etc/localtime
         - ./php.ini:/usr/local/etc/php/php.ini
         - /var/www/html:/var/www/html
     ports:
