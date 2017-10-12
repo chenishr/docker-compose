@@ -1,4 +1,5 @@
 nginx:
+    restart: always
     image: index.alauda.cn/library/nginx
     links:
         - phpfpm
@@ -11,6 +12,7 @@ nginx:
         - ./nginx.d:/etc/nginx/conf.d
 
 mysql:
+    restart: always
     image: index.alauda.cn/library/mysql
     environment:
         MYSQL_ROOT_PASSWORD: qazasdedc123
@@ -27,11 +29,13 @@ workplace:
         - /var/www/html:/var/www/html
 
 redis:
+    restart: always
     image: index.alauda.cn/library/redis
     ports:
         - "6379:6379"
 
 phpfpm:
+    restart: always
     #image: php-fpm:v5.6
     image: php-fpm:v7.03
     links:
