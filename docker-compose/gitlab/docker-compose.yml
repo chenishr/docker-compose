@@ -2,7 +2,7 @@ version: '2'
 
 services:
     redis:
-        restart: always
+        #restart: always
         image: index.alauda.cn/library/redis
         command:
             - --loglevel warning
@@ -10,7 +10,7 @@ services:
             - /Users/chenishr/gitlab/redis:/data:Z
 
     postgresql:
-        restart: always
+        #restart: always
         image: index.alauda.cn/library/postgres
         volumes:
             - /Users/chenishr/gitlab/postgresql:/var/lib/postgresql/data:Z
@@ -21,7 +21,7 @@ services:
             - DB_EXTENSION=pg_trgm
 
     gitlab:
-        restart: always
+        #restart: always
         image: index.alauda.cn/sameersbn/gitlab
         depends_on:
             - redis

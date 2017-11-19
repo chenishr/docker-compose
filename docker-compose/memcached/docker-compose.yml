@@ -1,0 +1,5 @@
+memcached:
+    restart: always
+    image: index.alauda.cn/library/memcached
+    ports:
+        - "11211:11211"
