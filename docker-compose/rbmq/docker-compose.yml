@@ -1,0 +1,8 @@
+memcached:
+    #restart: always
+    image: index.alauda.cn/library/rabbitmq
+    ports:
+        - "4369:4369"
+        - "5671:5671" 
+        - "5672:5672"
+        - "25672:25672"
