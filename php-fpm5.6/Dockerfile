@@ -24,4 +24,23 @@ RUN		cd /opt \
 		&& rm /tmp/redis-3.1.5RC1.tgz \
 		&& docker-php-ext-enable redis
 
+######################################
+# install xdebug
+######################################
+
+RUN curl -fsSL 'https://xdebug.org/files/xdebug-2.5.4.tgz' -o xdebug.tar.gz \
+	&& mkdir -p xdebug \
+	&& tar -xf xdebug.tar.gz -C xdebug --strip-components=1 \
+	&& rm xdebug.tar.gz \
+	&& ( \
+			cd xdebug \
+			&& phpize \
+			&& ./configure --enable-xdebug \
+			&& make -j$(nproc) \
+			&& make install \
+	   ) \
+	&& rm -r xdebug \
+	&& docker-php-ext-enable xdebug
+
+
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai  /etc/localtime
