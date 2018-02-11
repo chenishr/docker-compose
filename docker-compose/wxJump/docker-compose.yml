@@ -1,0 +1,8 @@
+workplace:
+    restart: always
+    image: workplace:v0.13
+    net: "host"
+    volumes:
+        - /Users/chenishr/www:/var/www/html
+    ports:
+        - "5037:5037"

@@ -39,6 +39,8 @@ RUN		apt-get update \
 			libfreetype6-dev \
 			libssl-dev \
 			python \
+			iputils-ping \
+			net-tools \
 		&& ln -s /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib
 
 RUN		apt-get install -y vim-nox-py2 
