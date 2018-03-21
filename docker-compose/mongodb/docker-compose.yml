@@ -1,0 +1,6 @@
+mongodb:
+    restart: always
+    image: mongo:3.2.18
+    ports:
+        - "27017:27017"
+        - "28017:28017"
