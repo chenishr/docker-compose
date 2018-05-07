@@ -1,4 +1,4 @@
-memcached:
+rbmq:
     #restart: always
     image: index.alauda.cn/library/rabbitmq
     ports:
