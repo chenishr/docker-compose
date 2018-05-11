@@ -1,6 +1,9 @@
 FROM index.alauda.cn/library/ubuntu:16.04
 MAINTAINER	chenishr@gmail.com
 
+# 中文显示
+ENV LANG C.UTF-8
+
 #####################################
 # 非 root 用户 :
 # Add a non-root user to prevent files being created with root permissions on host machine.
@@ -39,10 +42,12 @@ RUN		apt-get update \
 			libfreetype6-dev \
 			libssl-dev \
 			python \
+			python-setuptools \
 			iputils-ping \
 			net-tools \
 		&& ln -s /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib
 
+RUN		easy_install pip
 RUN		apt-get install -y vim-nox-py2 
 
 ##################################
@@ -71,7 +76,6 @@ RUN		cd /opt \
 					--enable-mbstring \
 					--disable-rpath \
 					--disable-debug \
-					--disable-fileinfo \
 					--with-mysql=mysqlnd \
 					--with-mysqli=mysqlnd \
 					--with-pdo-mysql=mysqlnd \
