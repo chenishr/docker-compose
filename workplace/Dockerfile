@@ -69,9 +69,6 @@ RUN		cd /opt \
 					--enable-soap \
 					--enable-xml \
 					--enable-mbstring \
-					--disable-rpath \
-					--disable-debug \
-					--disable-fileinfo \
 					--with-mysql=mysqlnd \
 					--with-mysqli=mysqlnd \
 					--with-pdo-mysql=mysqlnd \
