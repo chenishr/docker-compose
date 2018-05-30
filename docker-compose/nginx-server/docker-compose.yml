@@ -26,7 +26,8 @@ mysql:
         - /var/mysql:/var/lib/mysql
 
 workplace:
-    image: workplace:v0.1
+    restart: always
+    image: registry.cn-shenzhen.aliyuncs.com/chenishr/workplace
     volumes:
         - /etc/localtime:/etc/localtime
         - /var/www/html:/var/www/html
@@ -41,8 +42,7 @@ redis:
 
 phpfpm:
     restart: always
-    #image: php-fpm:v5.6
-    image: php-fpm:v7.03
+    image: registry.cn-shenzhen.aliyuncs.com/chenishr/php71
     links:
         - redis
         - mysql
