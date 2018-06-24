@@ -122,6 +122,24 @@ RUN		cd /opt \
 		&& echo "" >> /etc/php/php.ini \
 		&& echo "extension=swoole.so" >> /etc/php/php.ini
 
+######################################
+# install redis
+######################################
+
+COPY	./php/redis-3.1.5RC1.tgz /tmp/
+RUN		cd /opt \
+		&& tar -zxf /tmp/redis-3.1.5RC1.tgz \
+			&& (\
+				cd redis-3.1.5RC1 \
+				&& /usr/local/php/bin/phpize  \
+				&& ./configure --with-php-config=/usr/local/php/bin/php-config \
+				&& make && make install \
+			 )\
+		&& rm /tmp/redis-3.1.5RC1.tgz \
+		&& echo "" >> /etc/php/php.ini \
+		&& echo "extension=redis.so" >> /etc/php/php.ini
+
+
 ##########################################
 # 安装 composer
 ##########################################
