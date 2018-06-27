@@ -45,6 +45,8 @@ RUN		apt-get update \
 			python-setuptools \
 			iputils-ping \
 			net-tools \
+			gdb \
+			strace \
 		&& ln -s /usr/lib/x86_64-linux-gnu/libssl.so /usr/lib
 
 RUN		easy_install pip
