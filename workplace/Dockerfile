@@ -162,16 +162,16 @@ COPY   ./php/phpunit /usr/local/bin/
 # 安装 node.js
 #########################################
 USER	root
-COPY	./node-v6.11.1.tar.gz /tmp/
+COPY	./node-v8.11.4.tar.gz /tmp/
 RUN		cd /opt \
-			&& tar -zxf /tmp/node-v6.11.1.tar.gz \
+			&& tar -zxf /tmp/node-v8.11.4.tar.gz \
 			&& ( \
-				cd node-v6.11.1 \
+				cd node-v8.11.4 \
 				&& ./configure \
 				&& make \
 				&& make install \
 			   ) \
-			&& rm /tmp/node-v6.11.1.tar.gz 
+			&& rm /tmp/node-v8.11.4.tar.gz 
 
 #########################################
 # 设置镜像时区为上海
