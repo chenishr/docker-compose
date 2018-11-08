@@ -11,6 +11,22 @@ RUN apt-get update && apt-get install -y \
 		&& docker-php-ext-install -j$(nproc) gd \
 	&& docker-php-ext-install -j$(nproc) pdo_mysql
 ######################################
+# install xcache
+######################################
+
+COPY	./xcache-3.2.0.tar.gz /tmp/
+RUN		cd /opt \
+		&& tar -zxf /tmp/xcache-3.2.0.tar.gz \
+			&& (\
+				cd xcache-3.2.0 \
+				&& /usr/local/bin/phpize \
+				&& ./configure \
+				&& make && make install \
+			 )\
+		&& rm /tmp/xcache-3.2.0.tar.gz \
+		&& docker-php-ext-enable xcache
+
+######################################
 # install redis
 ######################################
 
