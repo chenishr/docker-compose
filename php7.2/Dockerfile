@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
 		libmagickwand-dev \
 		libmagickcore-dev \
 		mysql-client \
-    && docker-php-ext-install iconv pdo_mysql bcmath zip\
+    && docker-php-ext-install iconv pdo_mysql bcmath zip pcntl opcache \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install gd
 
@@ -47,3 +47,6 @@ RUN		cd /opt \
 		&& docker-php-ext-enable imagick
 
 CMD ["php-fpm"]
+
+# Possible values for ext-name:
+# bcmath bz2 calendar ctype curl dba dom enchant exif fileinfo filter ftp gd gettext gmp hash iconv imap interbase intl json ldap mbstring mcrypt mysqli oci8 odbc opcache pcntl pdo pdo_dblib pdo_firebird pdo_mysql pdo_oci pdo_odbc pdo_pgsql pdo_sqlite pgsql phar posix pspell readline recode reflection session shmop simplexml snmp soap sockets spl standard sysvmsg sysvsem sysvshm tidy tokenizer wddx xml xmlreader xmlrpc xmlwriter xsl zip
