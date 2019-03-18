@@ -1,0 +1,13 @@
+workplace:
+    restart: always
+    image: registry.cn-shenzhen.aliyuncs.com/chenishr/workplace
+    ports:
+        - "9601:9501"
+        - "9602:9502"
+        - "9603:9503"
+    volumes:
+        - /Users/chenishr/www/html:/var/www/html
+    cap_add:
+        - SYS_PTRACE
+    security_opt:
+        - seccomp:unconfined

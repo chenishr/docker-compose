@@ -1,0 +1,15 @@
+FROM php:base
+
+RUN 	wget -O /usr/src/swoole_4.3.1.tar.xz https://github.com/swoole/swoole-src/archive/v4.3.1.tar.gz \
+		&& mkdir /usr/src/swoole_4.3.1 \
+		&& tar -zxf /usr/src/swoole_4.3.1.tar.xz -C /usr/src/ \
+		&& ( \
+				cd /usr/src/swoole-src-4.3.1 \
+				&& /usr/local/bin/phpize \
+				&& ./configure --with-php-config=/usr/local/bin/php-config \
+				&& make \
+				&& make install \
+		   ) \
+		&& rm /usr/src/swoole_4.3.1.tar.xz \
+		&& rm -rf /usr/src/swoole-src-4.3.1 \
+		&& echo "extension=swoole.so" > /usr/local/etc/php/conf.d/docker-php-ext-swoole.ini

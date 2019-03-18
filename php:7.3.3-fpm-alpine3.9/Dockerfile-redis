@@ -1,0 +1,14 @@
+FROM php:base
+
+RUN 	wget -O /usr/src/redis_4.3.0.tar.gz https://github.com/phpredis/phpredis/archive/4.3.0.tar.gz \
+		&& tar -zxf /usr/src/redis_4.3.0.tar.gz -C /usr/src/ \
+		&& ( \
+				cd /usr/src/phpredis-4.3.0 \
+				&& /usr/local/bin/phpize \
+				&& ./configure --with-php-config=/usr/local/bin/php-config \
+				&& make \
+				&& make install \
+		   ) \
+		&& rm /usr/src/redis_4.3.0.tar.gz \
+		&& rm -rf /usr/src/phpredis-4.3.0 \
+		&& echo "extension=redis.so" > /usr/local/etc/php/conf.d/docker-php-ext-redis.ini
