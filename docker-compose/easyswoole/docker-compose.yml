@@ -6,3 +6,17 @@ easyswoole:
         - "8002:9502"
     volumes:
         - /var/www/code/code:/var/www/code
+workplace:
+    restart: always
+    image: easyswoole:0.02
+    links:
+        - redis
+        - mysql
+    ports:
+        - "9521:9501"
+        - "9522:9502"
+        - "9523:9503"
+        - "9527:9527"
+    volumes:
+        #- /etc/localtime:/etc/localtime
+        - /Users/chenishr/www/html:/var/www/html

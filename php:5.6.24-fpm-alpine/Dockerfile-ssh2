@@ -1,0 +1,6 @@
+FROM php56:tiny
+
+RUN apk add  libssh2 libssh2-dev $PHPIZE_DEPS
+RUN pecl install -o -f ssh2 \
+	    &&  rm -rf /tmp/pear \
+	    &&  docker-php-ext-enable ssh2

@@ -2,7 +2,7 @@ FROM php:7.2
 
 # Version
 ENV PHPREDIS_VERSION 4.0.1
-ENV SWOOLE_VERSION 4.4.0
+ENV SWOOLE_VERSION 4.3.3
 ENV EASYSWOOLE_VERSION 3.x-dev
 
 # Timezone
@@ -19,9 +19,7 @@ RUN apt-get update \
     libz-dev \
     libssl-dev \
     libnghttp2-dev \
-    libpcre3-dev \
-    && apt-get clean \
-    && apt-get autoremove
+    libpcre3-dev 
 
 # Composer
 RUN curl -sS https://getcomposer.org/installer | php \
@@ -57,30 +55,11 @@ RUN wget https://github.com/swoole/swoole-src/archive/v${SWOOLE_VERSION}.tar.gz 
 
 WORKDIR /var/www/code
 
-#####################################
-# 非 root 用户 :
-# Add a non-root user to prevent files being created with root permissions on host machine.
-#####################################
-ARG PUID=1000
-ARG PGID=1000
-RUN groupadd -g $PGID chenishr \
-	   && useradd -u $PUID -g chenishr -m chenishr
-
-RUN 	chown chenishr.chenishr  /var/www/code 
-
-USER chenishr
-
-RUN composer config -g repo.packagist composer https://packagist.phpcomposer.com
-
 # Install easyswoole
 RUN cd /var/www/code \
     && composer require easyswoole/easyswoole=${EASYSWOOLE_VERSION} \
     && php vendor/bin/easyswoole install
 
-<<<<<<< HEAD
 EXPOSE 9501
-=======
-EXPOSE 9527
->>>>>>> 67dd7843250fa4cfc67c1539de7c14b9129f371e
 
 ENTRYPOINT ["php", "/var/www/code/easyswoole", "start"]
