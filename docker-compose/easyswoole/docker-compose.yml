@@ -1,0 +1,8 @@
+easyswoole:
+    restart: always
+    image: easyswoole:v0.01
+    ports:
+        - "8001:9501"
+        - "8002:9502"
+    volumes:
+        - /var/www/code/code:/var/www/code

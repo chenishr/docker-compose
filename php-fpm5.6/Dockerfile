@@ -6,7 +6,7 @@ RUN apt-get update && apt-get install -y \
 		libpng12-dev \
 		gdb \
 		strace \
-		&& docker-php-ext-install -j$(nproc) iconv mcrypt mysqli mysql zip json bcmath pcntl \
+		&& docker-php-ext-install -j$(nproc) iconv mcrypt mysqli mysql zip json bcmath pcntl sockets \
 		&& docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
 		&& docker-php-ext-install -j$(nproc) gd \
 	&& docker-php-ext-install -j$(nproc) pdo_mysql
