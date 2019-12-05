@@ -110,17 +110,17 @@ RUN		echo "" >> ~/.bashrc \
 # 安装 swoole 
 ######################################
 USER	root
-COPY	./php/swoole-src-1.9.14.tar.gz /tmp/
+COPY	./php/swoole-swoole-v4.4.6.tar.gz /tmp/
 RUN		cd /opt \
-		&& tar -zxf /tmp/swoole-src-1.9.14.tar.gz \
+		&& tar -zxf /tmp/swoole-swoole-v4.4.6.tar.gz \
 		&& ( \
-			cd swoole-src-1.9.14 \
+			cd swoole \
 			&& /usr/local/php/bin/phpize \
 			&& ./configure --with-php-config=/usr/local/php/bin/php-config \
 			&& make \
 			&& make install \
 		   ) \
-		&& rm /tmp/swoole-src-1.9.14.tar.gz \
+		&& rm /tmp/swoole-swoole-v4.4.6.tar.gz \
 		&& echo "" >> /etc/php/php.ini \
 		&& echo "extension=swoole.so" >> /etc/php/php.ini
 
